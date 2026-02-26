@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Jacob Rodriguez — IT & Network Systems</title>
+<meta name="description" content="Jacob Rodriguez — IT Support Specialist, U.S. Marine Corps veteran, networking and cybersecurity focused."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #070A10;
+  --surface: #0D1117;
+  --surface2: #111820;
+  --border: rgba(0,255,170,.13);
+  --border2: rgba(255,255,255,.07);
+  --text: #E8F0F8;
+  --muted: rgba(232,240,248,.55);
+  --muted2: rgba(232,240,248,.35);
+  --green: #00FFAA;
+  --blue: #38BDF8;
+  --purple: #A78BFA;
+  --orange: #FB923C;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .025;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── GRID BG ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,170,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,170,.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap {
+  max-width: 1120px;
+  margin: auto;
+  padding: 0 24px 100px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(7,10,16,.85);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border2);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav-brand {
+  font-family: var(--mono);
+  font-size: .9rem;
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all .2s;
+}
+
+.nav-links a:hover {
+  color: var(--green);
+  border-color: var(--border);
+  background: rgba(0,255,170,.05);
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 90px 0 70px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: start;
+}
+
+@media(max-width:700px) { .hero { grid-template-columns: 1fr; } }
+
+.hero-tag {
+  font-family: var(--mono);
+  font-size: .8rem;
+  color: var(--green);
+  background: rgba(0,255,170,.08);
+  border: 1px solid rgba(0,255,170,.2);
+  padding: 4px 12px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 20px;
+  animation: fadeUp .6s ease both;
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  animation: fadeUp .6s .1s ease both;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, var(--green) 0%, var(--blue) 60%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: .95rem;
+  color: var(--muted);
+  animation: fadeUp .6s .2s ease both;
+}
+
+.hero-summary {
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 1rem;
+  max-width: 58ch;
+  line-height: 1.75;
+  animation: fadeUp .6s .3s ease both;
+}
+
+.hero-btns {
+  margin-top: 28px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  animation: fadeUp .6s .4s ease both;
+}
+
+.btn {
+  font-family: var(--mono);
+  font-size: .82rem;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all .2s;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  background: var(--surface);
+}
+
+.btn:hover { color: var(--text); border-color: rgba(255,255,255,.2); transform: translateY(-1px); }
+
+.btn.primary {
+  background: linear-gradient(135deg, rgba(0,255,170,.15), rgba(56,189,248,.12));
+  border-color: rgba(0,255,170,.35);
+  color: var(--green);
+}
+
+.btn.primary:hover {
+  background: linear-gradient(135deg, rgba(0,255,170,.25), rgba(56,189,248,.2));
+  box-shadow: 0 0 24px rgba(0,255,170,.2);
+}
+
+/* Status card */
+.status-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  padding: 22px;
+  min-width: 210px;
+  animation: fadeUp .6s .2s ease both;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: .8rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: 999px;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: pulse 2s infinite;
+}
+
+.status-item {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border2);
+  font-family: var(--mono);
+  font-size: .78rem;
+}
+
+.status-label { color: var(--muted2); margin-bottom: 4px; }
+.status-value { color: var(--text); }
+.status-value.green { color: var(--green); }
+.status-value.blue { color: var(--blue); }
+.status-value.purple { color: var(--purple); }
+
+/* ── SKILLS MARQUEE ── */
+.marquee-wrap {
+  border-top: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  padding: 14px 0;
+  overflow: hidden;
+  margin-bottom: 70px;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 32px;
+  animation: marquee 22s linear infinite;
+  width: max-content;
+}
+
+.marquee-item {
+  font-family: var(--mono);
+  font-size: .8rem;
+  color: var(--muted2);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.marquee-item::before {
+  content: '◈';
+  color: var(--green);
+  opacity: .5;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ── SECTIONS ── */
+.section-label {
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--green);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  margin-bottom: 32px;
+  letter-spacing: -.01em;
+}
+
+/* ── EXPERIENCE ── */
+.exp-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 70px;
+}
+
+.exp-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: start;
+  transition: border-color .25s, transform .25s;
+}
+
+.exp-card:hover {
+  border-color: rgba(0,255,170,.22);
+  transform: translateX(4px);
+}
+
+.exp-num {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--muted2);
+  padding-top: 4px;
+  min-width: 28px;
+}
+
+.exp-role {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 2px;
+}
+
+.exp-meta {
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--muted2);
+  margin-bottom: 14px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.exp-meta span { color: var(--blue); }
+
+.exp-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.exp-list li {
+  font-size: .9rem;
+  color: var(--muted);
+  padding-left: 16px;
+  position: relative;
+}
+
+.exp-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  opacity: .6;
+  font-size: .75rem;
+  top: 3px;
+}
+
+/* ── SKILLS ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 70px;
+}
+
+@media(max-width:700px) { .skills-grid { grid-template-columns: 1fr; } }
+@media(max-width:900px) { .skills-grid { grid-template-columns: repeat(2,1fr); } }
+
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 22px;
+  transition: border-color .25s;
+}
+
+.skill-card:hover { border-color: rgba(56,189,248,.3); }
+
+.skill-icon {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.skill-name {
+  font-weight: 700;
+  font-size: .95rem;
+  margin-bottom: 12px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-tag {
+  font-family: var(--mono);
+  font-size: .72rem;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border2);
+  color: var(--muted);
+}
+
+/* ── PROJECTS ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 70px;
+}
+
+@media(max-width:700px) { .projects-grid { grid-template-columns: 1fr; } }
+
+.proj-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 24px;
+  transition: all .25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.proj-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+  opacity: 0;
+  transition: opacity .25s;
+}
+
+.proj-card:hover { border-color: rgba(0,255,170,.2); transform: translateY(-3px); }
+.proj-card:hover::before { opacity: 1; }
+
+.proj-label {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+
+.proj-title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.proj-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.proj-list li {
+  font-size: .85rem;
+  color: var(--muted);
+  padding-left: 14px;
+  position: relative;
+}
+
+.proj-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--blue);
+  font-size: .75rem;
+}
+
+/* ── CERTS ── */
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 70px;
+}
+
+@media(max-width:600px) { .certs-grid { grid-template-columns: 1fr; } }
+
+.cert-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color .25s;
+}
+
+.cert-card:hover { border-color: rgba(167,139,250,.3); }
+
+.cert-icon {
+  font-size: 1.8rem;
+  min-width: 36px;
+  text-align: center;
+}
+
+.cert-name {
+  font-weight: 700;
+  font-size: .95rem;
+  margin-bottom: 3px;
+}
+
+.cert-status {
+  font-family: var(--mono);
+  font-size: .72rem;
+}
+
+.cert-status.earned { color: var(--green); }
+.cert-status.progress { color: var(--orange); }
+.cert-status.planned { color: var(--muted2); }
+
+/* ── CONTACT ── */
+.contact-box {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 18px;
+  padding: 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 70px;
+}
+
+.contact-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px at 50% 100%, rgba(0,255,170,.07), transparent 70%);
+  pointer-events: none;
+}
+
+.contact-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.contact-sub {
+  color: var(--muted);
+  font-size: .95rem;
+  margin-bottom: 28px;
+  max-width: 48ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border2);
+  padding-top: 28px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--muted2);
+}
+
+footer span { color: var(--green); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--green); }
+  50%       { opacity: .5; box-shadow: 0 0 4px var(--green); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border2);
+  margin: 0 0 70px;
+}
+
+/* Marine badge */
+.marine-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--muted2);
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border2);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-left: 10px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Jacob Rodriguez</div>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certs">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+<h1>Jacob<br/><span>Rodriguez</span></h1>
+      <div class="hero-sub">
+        IT Support Specialist · Networking · Security Systems
+        <span class="marine-badge">🎖 USMC Veteran</span>
+      </div>
+      <p class="hero-summary">
+        IT professional with hands-on experience in networking, surveillance systems, and enterprise infrastructure. U.S. Marine Corps veteran with a background in Windows Server, Active Directory, and secure communications. Actively building toward network and cybersecurity roles.
+      </p>
+      <div class="hero-btns">
+        <a class="btn primary" href="mailto:jacobr757@gmail.com">✉ Email Me</a>
+        <a class="btn" href="https://www.linkedin.com/in/jacob-rodriguez-tech" target="_blank">LinkedIn ↗</a>
+        <a class="btn" href="resume.pdf" target="_blank">Resume PDF</a>
+        <a class="btn" href="https://github.com/YOURHANDLE" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <div class="status-card">
+      <div class="status-row">
+        <div class="status-dot"></div>
+        <span>Available for hire</span>
+      </div>
+      <div class="status-item">
+        <div class="status-label">// location</div>
+        <div class="status-value">Chicago · Chicagoland, IL</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">// currently studying</div>
+        <div class="status-value blue">CompTIA Network+</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">// experience</div>
+        <div class="status-value green">3+ years IT</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">// focus</div>
+        <div class="status-value purple">Networking · Cybersecurity</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">TCP/IP</span>
+      <span class="marquee-item">Active Directory</span>
+      <span class="marquee-item">Windows Server</span>
+      <span class="marquee-item">Wireshark</span>
+      <span class="marquee-item">DHCP · DNS</span>
+      <span class="marquee-item">VLANs</span>
+      <span class="marquee-item">IP Cameras · NVR</span>
+      <span class="marquee-item">PoE Switching</span>
+      <span class="marquee-item">Port Forwarding</span>
+      <span class="marquee-item">VirtualBox · VMware</span>
+      <span class="marquee-item">Microsoft 365</span>
+      <span class="marquee-item">Subnetting</span>
+      <span class="marquee-item">Packet Tracer</span>
+      <span class="marquee-item">Firewall Basics</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">TCP/IP</span>
+      <span class="marquee-item">Active Directory</span>
+      <span class="marquee-item">Windows Server</span>
+      <span class="marquee-item">Wireshark</span>
+      <span class="marquee-item">DHCP · DNS</span>
+      <span class="marquee-item">VLANs</span>
+      <span class="marquee-item">IP Cameras · NVR</span>
+      <span class="marquee-item">PoE Switching</span>
+      <span class="marquee-item">Port Forwarding</span>
+      <span class="marquee-item">VirtualBox · VMware</span>
+      <span class="marquee-item">Microsoft 365</span>
+      <span class="marquee-item">Subnetting</span>
+      <span class="marquee-item">Packet Tracer</span>
+      <span class="marquee-item">Firewall Basics</span>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="reveal">
+    <div class="section-label">// work history</div>
+    <h2 class="section-title">Experience</h2>
+    <div class="exp-grid">
+
+      <div class="exp-card">
+        <div class="exp-num">01</div>
+        <div>
+          <div class="exp-role">Technical Support Specialist</div>
+          <div class="exp-meta">Imperial Surveillance <span>· Arlington Heights, IL</span></div>
+          <ul class="exp-list">
+            <li>Provided remote and on-call support for commercial and residential surveillance and access control systems.</li>
+            <li>Troubleshot IP camera connectivity, network performance, and remote access issues across diverse client environments.</li>
+            <li>Configured NVRs, PoE switches, routers, and user credentials for new installations and upgrades.</li>
+            <li>Applied networking fundamentals: IP addressing, port forwarding, and firewall configuration.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-num">02</div>
+        <div>
+          <div class="exp-role">Data Systems Administrator</div>
+          <div class="exp-meta">U.S. Marine Corps <span>· Lake Bluff, IL</span> <span>🎖</span></div>
+          <ul class="exp-list">
+            <li>Administered Windows Server, Active Directory, DNS, and DHCP systems in a secure, mission-critical environment.</li>
+            <li>Maintained network reliability and supported secure communications for unit operations.</li>
+            <li>Trained junior personnel on troubleshooting procedures and technical documentation standards.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-num">03</div>
+        <div>
+          <div class="exp-role">Certification Reviewer</div>
+          <div class="exp-meta">Intertek <span>· Arlington Heights, IL</span></div>
+          <ul class="exp-list">
+            <li>Coordinated product testing and certification workflows across multiple industries.</li>
+            <li>Reviewed technical documentation for compliance with ISO and ETL safety standards.</li>
+            <li>Collaborated cross-functionally with engineers and clients to improve process efficiency.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- SKILLS -->
+  <section id="skills" class="reveal">
+    <div class="section-label">// technical proficiencies</div>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-icon">🖥️</div>
+        <div class="skill-name">Infrastructure & Systems</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Windows Server</span>
+          <span class="skill-tag">Active Directory</span>
+          <span class="skill-tag">Microsoft 365</span>
+          <span class="skill-tag">VirtualBox</span>
+          <span class="skill-tag">VMware</span>
+          <span class="skill-tag">Ticketing Systems</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">Networking</div>
+        <div class="skill-tags">
+          <span class="skill-tag">TCP/IP</span>
+          <span class="skill-tag">Subnetting</span>
+          <span class="skill-tag">DHCP</span>
+          <span class="skill-tag">DNS</span>
+          <span class="skill-tag">VLANs</span>
+          <span class="skill-tag">Wireshark</span>
+          <span class="skill-tag">Packet Tracer</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">📷</div>
+        <div class="skill-name">Security Systems</div>
+        <div class="skill-tags">
+          <span class="skill-tag">IP Cameras</span>
+          <span class="skill-tag">NVR Config</span>
+          <span class="skill-tag">PoE Infrastructure</span>
+          <span class="skill-tag">Access Control</span>
+          <span class="skill-tag">Port Forwarding</span>
+          <span class="skill-tag">Firewall Basics</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🛡️</div>
+        <div class="skill-name">Security Fundamentals</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Identity Management</span>
+          <span class="skill-tag">Credential Hardening</span>
+          <span class="skill-tag">Network Segmentation</span>
+          <span class="skill-tag">Packet Analysis</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🔧</div>
+        <div class="skill-name">Support & Operations</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Remote Troubleshooting</span>
+          <span class="skill-tag">Escalation</span>
+          <span class="skill-tag">Documentation</span>
+          <span class="skill-tag">End-User Support</span>
+          <span class="skill-tag">Training</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🎖️</div>
+        <div class="skill-name">Soft Skills</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Mission-Focused</span>
+          <span class="skill-tag">Under Pressure</span>
+          <span class="skill-tag">Team Leadership</span>
+          <span class="skill-tag">Adaptability</span>
+          <span class="skill-tag">Discipline</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="reveal">
+    <div class="section-label">// lab & personal work</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+
+      <div class="proj-card">
+        <div class="proj-label">// home lab</div>
+        <div class="proj-title">Network Setup & Optimization</div>
+        <ul class="proj-list">
+          <li>Configured and secured a home wireless network with firmware updates and credential hardening.</li>
+          <li>Improved throughput via channel optimization and QoS device prioritization.</li>
+          <li>Diagnosed and resolved latency and connectivity issues using diagnostic tools.</li>
+        </ul>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-label">// virtualization</div>
+        <div class="proj-title">IT Lab — Windows Server Environment</div>
+        <ul class="proj-list">
+          <li>Built a personal IT lab using Oracle VirtualBox to simulate enterprise environments.</li>
+          <li>Installed and managed Windows Server with AD, DNS, and DHCP roles configured.</li>
+          <li>Practiced user provisioning, group policy, and system administration workflows.</li>
+        </ul>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-label">// packet analysis</div>
+        <div class="proj-title">Network Diagnostics & Traffic Analysis</div>
+        <ul class="proj-list">
+          <li>Used Wireshark to capture and analyze live traffic for connectivity troubleshooting.</li>
+          <li>Practiced subnetting calculations and IP addressing schemes using Packet Tracer.</li>
+          <li>Documented findings in structured technical reports.</li>
+        </ul>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-label">// ongoing</div>
+        <div class="proj-title">CompTIA Network+ Study Lab</div>
+        <ul class="proj-list">
+          <li>Actively building exam readiness through hands-on labs aligned to N+ objectives.</li>
+          <li>Practicing OSI model, routing protocols, and network troubleshooting scenarios.</li>
+          <li>Targeting certification completion in 2025.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- CERTS -->
+  <section id="certs" class="reveal">
+    <div class="section-label">// credentials</div>
+    <h2 class="section-title">Certifications & Education</h2>
+    <div class="certs-grid">
+
+      <div class="cert-card">
+        <div class="cert-icon">✅</div>
+        <div>
+          <div class="cert-name">CompTIA ITF+</div>
+          <div class="cert-status earned">Earned</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon">📘</div>
+        <div>
+          <div class="cert-name">CompTIA Network+</div>
+          <div class="cert-status progress">In Progress</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon">🗓️</div>
+        <div>
+          <div class="cert-name">ITIL 4 Foundations</div>
+          <div class="cert-status planned">Planned</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon">🎓</div>
+        <div>
+          <div class="cert-name">Harper College — A.A., Information Technology</div>
+          <div class="cert-status earned">IT Pathway</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- CONTACT -->
+  <section id="contact" class="reveal">
+    <div class="contact-box">
+      <div class="section-label" style="margin-bottom:12px">// get in touch</div>
+      <div class="contact-title">Let's Work Together</div>
+      <p class="contact-sub">Open to IT support, helpdesk, networking, and junior cybersecurity roles. Based in Chicagoland — available for in-person or remote positions.</p>
+      <div class="contact-links">
+        <a class="btn primary" href="mailto:jacobr757@gmail.com">✉ jacobr757@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/jacob-rodriguez-tech" target="_blank">LinkedIn ↗</a>
+        <a class="btn" href="resume.pdf" target="_blank">Download Resume</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Jacob Rodriguez</span> · IT & Network Systems · Chicago, IL · <span id="yr"></span>
+  </footer>
+
+</div>
+
+<script>
+// Year
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Scroll reveal
+const els = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+els.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
